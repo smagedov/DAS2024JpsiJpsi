@@ -4,9 +4,8 @@ Setup:
 ```
 ssh -Y USERNAME@cmslpc-sl7.fnal.gov
 cd ~/nobackup/
-mkdir CMSDAS2024
-cd CMSDAS2024
 git clone https://github.com/IreneZoi/DAS2024JpsiJpsi.git
+cd DAS2024JpsiJpsi
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_10_2_5
 cmsrel CMSSW_11_1_1
@@ -14,7 +13,7 @@ cmsrel CMSSW_11_1_1
 
 For the event selection part:
 ```
-cd ~/nobackup/CMSDAS2024/CMSSW_10_2_5/src
+cd ~/nobackup/DAS2024JpsiJpsi/CMSSW_10_2_5/src
 cmsenv
 cd ../../eventselection/
 root -l
@@ -29,7 +28,7 @@ root [2] myFourMuonmass->Draw()
 
 For the fit part:
 ```
-cd ~/nobackup/CMSDAS2024/CMSSW_11_1_1/src/
+cd ~/nobackup/DAS2024JpsiJpsi/CMSSW_11_1_1/src/
 cmsenv
 cd ../../fitpackage/
 source makeLibSo.sh
