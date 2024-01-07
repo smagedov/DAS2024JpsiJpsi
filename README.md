@@ -14,7 +14,7 @@ cmsrel CMSSW_11_1_1
 
 For the event selection part:
 ```
-cd ~/nobackup/CMSDAS2024/CMSSW_10_2_5/src
+cd ~/nobackup/CMSDAS2024JpsiJpsi/CMSSW_10_2_5/src
 cmsenv
 cd ../../eventselection/
 root -l
@@ -29,7 +29,7 @@ root [2] myFourMuonmass->Draw()
 
 For the fit part:
 ```
-cd ~/nobackup/CMSDAS2024/CMSSW_11_1_1/src/
+cd ~/nobackup/CMSDAS2024JpsiJpsi/CMSSW_11_1_1/src/
 cmsenv
 cd ../../fitpackage/
 source makeLibSo.sh
