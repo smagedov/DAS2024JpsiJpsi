@@ -138,18 +138,13 @@ void myntuple::Loop()
 			int myNumPatLooseMuon = (*muIsPatLooseMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			int myNumPatMediumMuon = (*muIsPatMediumMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			int myNumPatTightMuon = (*muIsPatTightMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
-
+			float DiMuonMass1 = 0; 
+			float DiMuonMass2 = 0;
 			if (1
 					&& myNumPatSoftMuon >= 4
 					&& (*MyFourMuonVtxCL)[myFourMuIdx] >= 0.005     
-					&& (TrigThreeMuonJpsi   //2016  Jpsi trigger, 2017B
-						|| TrigThreeMuonJpsi3p5mu2)   //2017 & 2018 Jpsi trigger
-					&& fabs(rawMup4vect[0].Eta()) <= 2.4 && fabs(rawMup4vect[1].Eta()) <= 2.4
-					&& fabs(rawMup4vect[2].Eta()) <= 2.4 && fabs(rawMup4vect[3].Eta()) <= 2.4
-					&& fabs(rawMup4vect[0].Pt()) >= 2 && fabs(rawMup4vect[1].Pt()) >= 2
-					&& fabs(rawMup4vect[2].Pt()) >= 2 && fabs(rawMup4vect[3].Pt()) >= 2
-					&& (fitMuCharge[0] + fitMuCharge[1] + fitMuCharge[2] + fitMuCharge[3]) == 0
-			   ) {
+					// Here add the selections! 
+				) {
 				for (int mypidx = 0; mypidx < 3; mypidx++)  {
 					int muIdxp11, muIdxp12, muIdxp21, muIdxp22;
 					muIdxp11 = myCombIdx[mypidx].p11; muIdxp12 = myCombIdx[mypidx].p12; muIdxp21 = myCombIdx[mypidx].p21; muIdxp22 = myCombIdx[mypidx].p22;
@@ -160,20 +155,19 @@ void myntuple::Loop()
 							&& (fitMuCharge[muIdxp21] + fitMuCharge[muIdxp22]) == 0
 					  )
 					{
-						myDiMuon1mass->Fill((fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M());
-						myDiMuon2mass->Fill((fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M());
+						// Modify the DiMuonMass expression appropriatly. 
+						// Use the fitMup4vect and the muIdxpXY indexes defined above.
+						DiMuonMass1 = 0; 
+						DiMuonMass2 = 0;
+						myDiMuon1mass->Fill(DiMuonMass1);
+						myDiMuon2mass->Fill(DiMuonMass2);
 
 						if (1
-								&& (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M()>2.95
-								&& (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M()<3.25
-								&& (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M()>2.95
-								&& (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M()<3.25
-						   )
+								// Here require that each DiMuonMass is in the appropriate mass range [2.95,3.25] GeV
+														   )
 						{
-							double m4Muon = (fitMup4vect[muIdxp11]+fitMup4vect[muIdxp12]+fitMup4vect[muIdxp21]+fitMup4vect[muIdxp22]).M()
-								- (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M()
-								- (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M()
-								+ JPSI_MASS + JPSI_MASS;
+							// calculate the 4 muon mass:  M(µ1µ2µ3µ4)-M(µ1µ2)-M(µ3µ4)+2*M(J/psi)  
+							double m4Muon = 0;
 
 							myFourMuonmass->Fill(m4Muon);
 
