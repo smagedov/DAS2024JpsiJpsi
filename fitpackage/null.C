@@ -112,7 +112,7 @@ void null(){
   RooRealVar R_MTH("R_MTH", "R_MTH", MTH);
   RooRealVar R_MUP("R_MUP", "R_MUP", 15.0);
   RooRealVar mx("mx", "mx", mxMin, mxMax);
-  RooDataSet data = *RooDataSet::read("../eventselection/mJJDataFull6000_15000.txt", RooArgList(mx), "Q");
+  RooDataSet data = *RooDataSet::read("../fullrun2data/mJJDataFull6000_15000.txt", RooArgList(mx), "Q");
 
   double numDpsInit = 3.51582e+03, numDpsMin = 0, numDpsMax = 100000;
   RooRealVar numDps("numDps", "numDps", numDpsInit, numDpsMin, numDpsMax);
