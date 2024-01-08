@@ -141,7 +141,9 @@ void myntuple::Loop()
 			float DiMuonMass1 = 0; 
 			float DiMuonMass2 = 0;
 			if (1
-					&& myNumPatSoftMuon >= 4
+					// soft muon: tracker muon + 1 hit in the muon system 
+					&& myNumPatSoftMuon >= 4 
+					// requiring all muons to come from the same vertex
 					&& (*MyFourMuonVtxCL)[myFourMuIdx] >= 0.005     
 					// Here add the selections! 
 				) {

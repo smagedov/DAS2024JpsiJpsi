@@ -176,37 +176,47 @@ void null_BW0(){
   RooRealVar w_g1("w_g1", "w_g1", 0.024467);
   RooRealVar w_g2("w_g2", "w_g2", 0.010042);
   RooRealVar beta("beta", "beta", 0.50989);
-
+  // Parameters for Bright Wigner - see formula in Twiki
+  // and note that some of the parameters are floating while others are fixed
   double massTh1Init = 6.33936e+00, massTh1Min = 6.20, massTh1Max = 6.50;
   RooRealVar massTh1("massTh1", "massTh1", massTh1Init, massTh1Min, massTh1Max);
-  massTh1.setConstant(kFALSE);
+  massTh1.setConstant(kFALSE); //m_0
   double widthTh1Init = 3.53406e-01, widthTh1Min = 0.00, widthTh1Max = 1.50;
   RooRealVar widthTh1("widthTh1", "widthTh1", widthTh1Init, widthTh1Min, widthTh1Max);
-  widthTh1.setConstant(kFALSE);
-  double LTh1Init = 0;
+  widthTh1.setConstant(kFALSE); //Gamma_0
+  double LTh1Init = 0; // We assume S-wave
   RooRealVar LTh1("LTh1", "LTh1", LTh1Init);
   LTh1.setConstant(kTRUE);
   double dTh1Init = 3.00, dTh1Min = 1.00, dTh1Max = 5.00;
   RooRealVar dTh1("dTh1", "dTh1", dTh1Init, dTh1Min, dTh1Max);
-  dTh1.setConstant(kTRUE);
+  dTh1.setConstant(kTRUE); 
+  // the parameters below are related to interference terms. 
+  // We set them to a constant value as we are not considering interference
   double coefTh1Init = 1, coefTh1Min = 0, coefTh1Max = 1000;
   RooRealVar coefTh1("coefTh1", "coefTh1", coefTh1Init, coefTh1Min, coefTh1Max);
   coefTh1.setConstant(kTRUE);
   double phiTh1Init = 0, phiTh1Min = -PI, phiTh1Max = PI;
   RooRealVar phiTh1("phiTh1", "phiTh1", phiTh1Init, phiTh1Min, phiTh1Max);
   phiTh1.setConstant(kTRUE);
+  // Here we construct our function with the parameters defined above
   MyRelBWSquare Th1("Th1", "Th1", mx,
       massTh1, widthTh1, LTh1, dTh1, coefTh1, phiTh1);
+  // We also need to take into account detector smearing which affect the resolution of the peak
   MiptDoubleGaussian2 resoTh1("resoTh1", "resoTh1", mx, R_ZERO, frac_g2,
       massTh1, R_MTH, w_g1, w_g2, beta);
+  // we do a numerical convolution as we do not have an analytical function
+  // This is the final formula for the peak    
   RooFFTConvPdf Th1Reso("Th1Reso", "Th1Reso",
       mx, Th1, resoTh1);
 
+  // dps and sps are backgrounds and Th1Reso is our signal
   RooArgList pdfList(dpsPdf, spsPdf, Th1Reso);
+  // we want to normalize them 
   RooArgList numList(numDps, numSps, numTh1);
 
   RooAddPdf model("model", "model", pdfList, numList);
 
+  // here is where the actual fitting happens
   RooFitResult *fitRes = model.fitTo(data, Save(kTRUE), 
       Minos(MINOS), Strategy(STRATEGY), NumCPU(NCPU));
   double edm = fitRes->edm();
@@ -236,6 +246,7 @@ void null_BW0(){
   *3= full accurate covariance matrix
   */
 
+  // now we want to plot the fit results
   RooPlot *frame = mx.frame(Range(mxMin, mxMax), Bins(mxBins));
   data.plotOn(frame, Name("data"));
   model.plotOn(frame, Name("model"), LineColor(4));
