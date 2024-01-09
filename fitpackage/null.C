@@ -114,25 +114,13 @@ void null(){
   RooRealVar mx("mx", "mx", mxMin, mxMax);
   RooDataSet data = *RooDataSet::read("../fullrun2data/mJJDataFull6000_15000.txt", RooArgList(mx), "Q");
 
+  // Below the two backgrounds due to single and douple parton scattering are defined (SPS and DPS)
   double numDpsInit = 3.51582e+03, numDpsMin = 0, numDpsMax = 100000;
   RooRealVar numDps("numDps", "numDps", numDpsInit, numDpsMin, numDpsMax);
   numDps.setConstant(kFALSE);
   double numSpsInit = 8.19119e+03, numSpsMin = 0, numSpsMax = 100000;
   RooRealVar numSps("numSps", "numSps", numSpsInit, numSpsMin, numSpsMax);
   numSps.setConstant(kFALSE);
-  double numX6900Init = 4.86688e+02, numX6900Min = 0, numX6900Max = 10000;
-  RooRealVar numX6900("numX6900", "numX6900", numX6900Init, numX6900Min, numX6900Max);
-  numX6900.setConstant(kFALSE);
-  double numTh1Init = 1.27056e+03, numTh1Min = 0, numTh1Max = 10000;
-  RooRealVar numTh1("numTh1", "numTh1", numTh1Init, numTh1Min, numTh1Max);
-  numTh1.setConstant(kFALSE);
-  double numX6500Init = 4.70494e+02, numX6500Min = 0, numX6500Max = 10000;
-  RooRealVar numX6500("numX6500", "numX6500", numX6500Init, numX6500Min, numX6500Max);
-  numX6500.setConstant(kFALSE);
-  double numX7300Init = 1.55263e+02, numX7300Min = 0, numX7300Max = 10000;
-  RooRealVar numX7300("numX7300", "numX7300", numX7300Init, numX7300Min, numX7300Max);
-  numX7300.setConstant(kFALSE);
-
 
   RooRealVar R_ZERO("R_ZERO", "R_ZERO", 0);
   RooRealVar R_ONE("R_ONE", "R_ONE", 1);
@@ -154,18 +142,13 @@ void null(){
 
   mx.setBins(FFT_BINS, "cache");
 
-  //resolution
-  RooRealVar R_SHIFT("R_SHIFT", "R_SHIFT", shift);
-  RooRealVar frac_g2("frac_g2", "frac_g2", 0.52357);
-  RooRealVar w_g1("w_g1", "w_g1", 0.024467);
-  RooRealVar w_g2("w_g2", "w_g2", 0.010042);
-  RooRealVar beta("beta", "beta", 0.50989);
-
+  // Here we build our model composed of the two backgrounds
   RooArgList pdfList(dpsPdf, spsPdf);
   RooArgList numList(numDps, numSps);
 
   RooAddPdf model("model", "model", pdfList, numList);
 
+  // Here the fit to the data happens
   RooFitResult *fitRes = model.fitTo(data, Save(kTRUE), 
       Minos(MINOS), Strategy(STRATEGY), NumCPU(NCPU));
   double edm = fitRes->edm();
@@ -195,6 +178,7 @@ void null(){
   *3= full accurate covariance matrix
   */
 
+  // Here we look at the plots
   RooPlot *frame = mx.frame(Range(mxMin, mxMax), Bins(mxBins));
   data.plotOn(frame, Name("data"));
   model.plotOn(frame, Name("model"), LineColor(4));
