@@ -130,24 +130,17 @@ void null_BW0(){
   RooRealVar mx("mx", "mx", mxMin, mxMax);
   RooDataSet data = *RooDataSet::read("../fullrun2data/mJJDataFull6000_15000.txt", RooArgList(mx), "Q");
 
+  // Here we introduce the normalization factors
   double numDpsInit = 3.51582e+03, numDpsMin = 0, numDpsMax = 100000;
   RooRealVar numDps("numDps", "numDps", numDpsInit, numDpsMin, numDpsMax);
   numDps.setConstant(kFALSE);
   double numSpsInit = 8.19119e+03, numSpsMin = 0, numSpsMax = 100000;
   RooRealVar numSps("numSps", "numSps", numSpsInit, numSpsMin, numSpsMax);
   numSps.setConstant(kFALSE);
-  double numX6900Init = 4.86688e+02, numX6900Min = 0, numX6900Max = 10000;
-  RooRealVar numX6900("numX6900", "numX6900", numX6900Init, numX6900Min, numX6900Max);
-  numX6900.setConstant(kFALSE);
+  // This will be the normalization of our first peak
   double numTh1Init = 1.27056e+03, numTh1Min = 0, numTh1Max = 10000;
   RooRealVar numTh1("numTh1", "numTh1", numTh1Init, numTh1Min, numTh1Max);
   numTh1.setConstant(kFALSE);
-  double numX6500Init = 4.70494e+02, numX6500Min = 0, numX6500Max = 10000;
-  RooRealVar numX6500("numX6500", "numX6500", numX6500Init, numX6500Min, numX6500Max);
-  numX6500.setConstant(kFALSE);
-  double numX7300Init = 1.55263e+02, numX7300Min = 0, numX7300Max = 10000;
-  RooRealVar numX7300("numX7300", "numX7300", numX7300Init, numX7300Min, numX7300Max);
-  numX7300.setConstant(kFALSE);
 
 
   RooRealVar R_ZERO("R_ZERO", "R_ZERO", 0);
@@ -169,14 +162,8 @@ void null_BW0(){
       dpsA, dpsP0, dpsP1, dpsP2, R_ZERO, R_ZERO, R_ONE, R_ZERO);
 
   mx.setBins(FFT_BINS, "cache");
-
-  //resolution
-  RooRealVar R_SHIFT("R_SHIFT", "R_SHIFT", shift);
-  RooRealVar frac_g2("frac_g2", "frac_g2", 0.52357);
-  RooRealVar w_g1("w_g1", "w_g1", 0.024467);
-  RooRealVar w_g2("w_g2", "w_g2", 0.010042);
-  RooRealVar beta("beta", "beta", 0.50989);
-  // Parameters for Bright Wigner - see formula in Twiki
+  
+  // Parameters for Breit-Wigner (BW) - see formula in Twiki
   // and note that some of the parameters are floating while others are fixed
   double massTh1Init = 6.33936e+00, massTh1Min = 6.20, massTh1Max = 6.50;
   RooRealVar massTh1("massTh1", "massTh1", massTh1Init, massTh1Min, massTh1Max);
@@ -198,6 +185,15 @@ void null_BW0(){
   double phiTh1Init = 0, phiTh1Min = -PI, phiTh1Max = PI;
   RooRealVar phiTh1("phiTh1", "phiTh1", phiTh1Init, phiTh1Min, phiTh1Max);
   phiTh1.setConstant(kTRUE);
+
+  // To take into account detectors effect that affect the resolution of our peak
+  // we introduce a smearing function with the below parameters
+  RooRealVar R_SHIFT("R_SHIFT", "R_SHIFT", shift);
+  RooRealVar frac_g2("frac_g2", "frac_g2", 0.52357);
+  RooRealVar w_g1("w_g1", "w_g1", 0.024467);
+  RooRealVar w_g2("w_g2", "w_g2", 0.010042);
+  RooRealVar beta("beta", "beta", 0.50989);
+
   // Here we construct our function with the parameters defined above
   MyRelBWSquare Th1("Th1", "Th1", mx,
       massTh1, widthTh1, LTh1, dTh1, coefTh1, phiTh1);
