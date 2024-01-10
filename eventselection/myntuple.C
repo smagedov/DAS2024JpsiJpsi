@@ -156,8 +156,20 @@ void myntuple::Loop()
 					&& (*MyFourMuonVtxCL)[myFourMuIdx] >= 0.005     
 					// Here add the selections!
 					//
-					// First Trigger Selection! 
-					//&& (TrigThreeMuonJpsi || TrigThreeMuonJpsi3p5mu2)
+					// Trigger Selection! 
+					&& (TrigThreeMuonJpsi || TrigThreeMuonJpsi3p5mu2)
+					//
+					// Transverse Momentum Selection!
+					&& rawMup4vect[0].Pt()>=2.0 && rawMup4vect[1].Pt()>=2.0 && rawMup4vect[2].Pt()>=2.0 && rawMup4vect[3].Pt()>=2.0
+					//
+					// Pseudo-Rapidity Selection!
+					&& fabs(rawMup4vect[0].Eta())<=2.4 && fabs(rawMup4vect[1].Eta())<=2.4 && fabs(rawMup4vect[2].Eta())<=2.4 && fabs(rawMup4vect[3].Eta())<=2.4
+					//
+					// Muon Pair Charge Selecion!
+					&& (fitMuCharge[0] + fitMuCharge[1]) == 0 && (fitMuCharge[2] + fitMuCharge[3]) == 0 && (fitMuCharge[0] + fitMuCharge[3]) == 0 && (fitMuCharge[1] + fitMuCharge[2]) == 0
+					//
+					// Total Sum Charge Selection!
+					&& (fitMuCharge[0] + fitMuCharge[1] + fitMuCharge[2] + fitMuCharge[3]) == 0
 				) {
 				for (int mypidx = 0; mypidx < 3; mypidx++)  {
 					int muIdxp11, muIdxp12, muIdxp21, muIdxp22;
@@ -166,6 +178,8 @@ void myntuple::Loop()
 
 					if(1
                                                 // Here, require the muon pairs to have muons with opposite charges
+                                                && (fitMuCharge[muIdxp11] + fitMuCharge[muIdxp12]) == 0
+						&& (fitMuCharge[muIdxp21] + fitMuCharge[muIdxp22]) == 0
 					  )
 					{
 						// Modify the DiMuonMass expression appropriatly. 
@@ -185,6 +199,8 @@ void myntuple::Loop()
 
 						if (1
 								// Here require that each DiMuonMass is in the appropriate mass range [2.95,3.25] GeV
+								&& (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M() > 2.95 && (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M() < 3.25
+								&& (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M() > 2.95 && (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M() < 3.25
 														   )
 						{
 							// calculate the 4 muon mass:  M(µ1µ2µ3µ4)-M(µ1µ2)-M(µ3µ4)+2*M(J/psi)  
