@@ -146,7 +146,10 @@ void myntuple::Loop()
 					&& myNumPatSoftMuon >= 4 
 					// requiring all muons to come from the same vertex
 					&& (*MyFourMuonVtxCL)[myFourMuIdx] >= 0.005     
-					// Here add the selections! 
+					// Here add the selections!
+					//
+					// First Trigger Selection! 
+					//&& (TrigThreeMuonJpsi || TrigThreeMuonJpsi3p5mu2)
 				) {
 				for (int mypidx = 0; mypidx < 3; mypidx++)  {
 					int muIdxp11, muIdxp12, muIdxp21, muIdxp22;
@@ -159,8 +162,8 @@ void myntuple::Loop()
 					{
 						// Modify the DiMuonMass expression appropriatly. 
 						// Use the fitMup4vect and the muIdxpXY indexes defined above.
-						DiMuonMass1 = 0; 
-						DiMuonMass2 = 0;
+						DiMuonMass1 = (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M(); 
+						DiMuonMass2 = (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22];
 						myDiMuon1mass->Fill(DiMuonMass1);
 						myDiMuon2mass->Fill(DiMuonMass2);
 
@@ -169,7 +172,7 @@ void myntuple::Loop()
 														   )
 						{
 							// calculate the 4 muon mass:  M(µ1µ2µ3µ4)-M(µ1µ2)-M(µ3µ4)+2*M(J/psi)  
-							m4Muon = 0;
+							m4Muon = (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12] + fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M() - (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M() - (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M() + 2*JPSI_MASS;
 
 							myFourMuonmass->Fill(m4Muon);
 
