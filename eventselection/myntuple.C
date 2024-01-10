@@ -140,7 +140,7 @@ void myntuple::Loop()
 			int myNumPatTightMuon = (*muIsPatTightMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			float DiMuonMass1 = 0.; 
 			float DiMuonMass2 = 0.;
-            double m4Muon = 0.;
+                        double m4Muon = 0.;
 			if (1
 					// soft muon: tracker muon + 1 hit in the muon system 
 					&& myNumPatSoftMuon >= 4 
@@ -154,7 +154,7 @@ void myntuple::Loop()
 
 
 					if(1
-                            // Here, require the muon pairs to have muons with opposite charges
+                                                // Here, require the muon pairs to have muons with opposite charges
 					  )
 					{
 						// Modify the DiMuonMass expression appropriatly. 
