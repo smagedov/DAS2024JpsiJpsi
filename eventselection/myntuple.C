@@ -138,8 +138,9 @@ void myntuple::Loop()
 			int myNumPatLooseMuon = (*muIsPatLooseMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatLooseMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			int myNumPatMediumMuon = (*muIsPatMediumMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatMediumMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			int myNumPatTightMuon = (*muIsPatTightMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
-			float DiMuonMass1 = 0; 
-			float DiMuonMass2 = 0;
+			float DiMuonMass1 = 0.; 
+			float DiMuonMass2 = 0.;
+            double m4Muon = 0.;
 			if (1
 					// soft muon: tracker muon + 1 hit in the muon system 
 					&& myNumPatSoftMuon >= 4 
@@ -153,8 +154,7 @@ void myntuple::Loop()
 
 
 					if(1
-							&& (fitMuCharge[muIdxp11] + fitMuCharge[muIdxp12]) == 0
-							&& (fitMuCharge[muIdxp21] + fitMuCharge[muIdxp22]) == 0
+                            // Here, require the muon pairs to have muons with opposite charges
 					  )
 					{
 						// Modify the DiMuonMass expression appropriatly. 
@@ -169,7 +169,7 @@ void myntuple::Loop()
 														   )
 						{
 							// calculate the 4 muon mass:  M(µ1µ2µ3µ4)-M(µ1µ2)-M(µ3µ4)+2*M(J/psi)  
-							double m4Muon = 0;
+							m4Muon = 0;
 
 							myFourMuonmass->Fill(m4Muon);
 
