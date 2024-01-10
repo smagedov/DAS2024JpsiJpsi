@@ -51,6 +51,10 @@ void myntuple::Loop()
 	//define histogram
 	TH1F* myDiMuon1mass = new TH1F("myDiMuon1mass","myDiMuon1mass",80,2.7,3.5);
 	TH1F* myDiMuon2mass = new TH1F("myDiMuon2mass","myDiMuon2mass",80,2.7,3.5);
+	TH1F* myDiMuon3mass = new TH1F("myDiMuon3mass","myDiMuon3mass",80,2.7,3.5);
+	TH1F* myDiMuon4mass = new TH1F("myDiMuon4mass","myDiMuon4mass",80,2.7,3.5);
+	TH1F* myDiMuon5mass = new TH1F("myDiMuon5mass","myDiMuon5mass",80,2.7,3.5);
+	TH1F* myDiMuon6mass = new TH1F("myDiMuon6mass","myDiMuon6mass",80,2.7,3.5);
 	TH1F* myFourMuonmass = new TH1F("myFourMuonmass","myFourMuonmass",360,6,15);
 
 	const double MUON_MASS = 0.1056583745; //GeV
@@ -140,6 +144,10 @@ void myntuple::Loop()
 			int myNumPatTightMuon = (*muIsPatTightMuon)[(*MyFourMuonMu1Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu2Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu3Idx)[myFourMuIdx]] + (*muIsPatTightMuon)[(*MyFourMuonMu4Idx)[myFourMuIdx]];
 			float DiMuonMass1 = 0.; 
 			float DiMuonMass2 = 0.;
+			float DiMuonMass3 = 0.;
+			float DiMuonMass4 = 0.;
+			float DiMuonMass5 = 0.;
+			float DiMuonMass6 = 0.;
                         double m4Muon = 0.;
 			if (1
 					// soft muon: tracker muon + 1 hit in the muon system 
@@ -163,9 +171,17 @@ void myntuple::Loop()
 						// Modify the DiMuonMass expression appropriatly. 
 						// Use the fitMup4vect and the muIdxpXY indexes defined above.
 						DiMuonMass1 = (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp12]).M(); 
-						DiMuonMass2 = (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22];
+						DiMuonMass2 = (fitMup4vect[muIdxp21] + fitMup4vect[muIdxp22]).M();
+						DiMuonMass3 = (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp22]).M();
+						DiMuonMass4 = (fitMup4vect[muIdxp12] + fitMup4vect[muIdxp21]).M();
+						DiMuonMass5 = (fitMup4vect[muIdxp11] + fitMup4vect[muIdxp22]).M();
+						DiMuonMass6 = (fitMup4vect[muIdxp12] + fitMup4vect[muIdxp21]).M();
 						myDiMuon1mass->Fill(DiMuonMass1);
 						myDiMuon2mass->Fill(DiMuonMass2);
+						myDiMuon3mass->Fill(DiMuonMass3);
+						myDiMuon4mass->Fill(DiMuonMass4);
+						myDiMuon5mass->Fill(DiMuonMass5);
+						myDiMuon6mass->Fill(DiMuonMass6);
 
 						if (1
 								// Here require that each DiMuonMass is in the appropriate mass range [2.95,3.25] GeV
