@@ -141,6 +141,18 @@ void null_BW0(){
   double numTh1Init = 1.27056e+03, numTh1Min = 0, numTh1Max = 10000;
   RooRealVar numTh1("numTh1", "numTh1", numTh1Init, numTh1Min, numTh1Max);
   numTh1.setConstant(kFALSE);
+  // The will be the normalization of our second peak
+  double numX6500Init = 4.70494e+02, numX6500Min = 0, numX6500Max = 10000;
+  RooRealVar numX6500("numX6500", "numX6500", numX6500Init, numX6500Min, numX6500Max);
+  numX6500.setConstant(kFALSE);
+  // This will be the normalization of our third peak
+  double numX6900Init = 4.86688e+02, numX6900Min = 0, numX6900Max = 10000;
+  RooRealVar numX6900("numX6900", "numX6900", numX6900Init, numX6900Min, numX6900Max);
+  numX6900.setConstant(kFALSE);
+  // This will be the normalization of our fourth peak
+  double numX7300Init = 1.55263e+02, numX7300Min = 0, numX7300Max = 10000;
+  RooRealVar numX7300("numX7300", "numX7300", numX7300Init, numX7300Min, numX7300Max);
+  numX7300.setConstant(kFALSE);
 
 
   RooRealVar R_ZERO("R_ZERO", "R_ZERO", 0);
@@ -185,6 +197,69 @@ void null_BW0(){
   double phiTh1Init = 0, phiTh1Min = -PI, phiTh1Max = PI;
   RooRealVar phiTh1("phiTh1", "phiTh1", phiTh1Init, phiTh1Min, phiTh1Max);
   phiTh1.setConstant(kTRUE);
+  //
+  //Here we add our own parameters for another peak
+  //
+  double massX6500Init = 6.55258e+00, massX6500Min = 6.40, massX6500Max = 6.80;
+  RooRealVar massX6500("massX6500", "massX6500", massX6500Init, massX6500Min, massX6500Max);
+  massX6500.setConstant(kFALSE);
+  double widthX6500Init = 1.24095e-01, widthX6500Min = 0.00, widthX6500Max = 0.50;
+  RooRealVar widthX6500("widthX6500", "widthX6500", widthX6500Init, widthX6500Min, widthX6500Max);
+  widthX6500.setConstant(kFALSE);
+  double LX6500Init = 0;
+  RooRealVar LX6500("LX6500", "LX6500", LX6500Init);
+  LX6500.setConstant(kTRUE);
+  double dX6500Init = 3.00, dX6500Min = 1.00, dX6500Max = 5.00;
+  RooRealVar dX6500("dX6500", "dX6500", dX6500Init, dX6500Min, dX6500Max);
+  dX6500.setConstant(kTRUE);
+  double coefX6500Init = 1, coefX6500Min = 0, coefX6500Max = 1000;
+  RooRealVar coefX6500("coefX6500", "coefX6500", coefX6500Init, coefX6500Min, coefX6500Max);
+  coefX6500.setConstant(kTRUE);
+  double phiX6500Init = 0, phiX6500Min = -PI, phiX6500Max = PI;
+  RooRealVar phiX6500("phiX6500", "phiX6500", phiX6500Init, phiX6500Min, phiX6500Max);
+  phiX6500.setConstant(kTRUE);
+  //
+  // Here we add parameters for third peak
+  //
+  double massX6900Init = 6.92586e+00, massX6900Min = 6.80, massX6900Max = 7.00;
+  RooRealVar massX6900("massX6900", "massX6900", massX6900Init, massX6900Min, massX6900Max);
+  massX6900.setConstant(kFALSE);
+  double widthX6900Init = 1.20864e-01, widthX6900Min = 0.00, widthX6900Max = 0.50;
+  RooRealVar widthX6900("widthX6900", "widthX6900", widthX6900Init, widthX6900Min, widthX6900Max);
+  widthX6900.setConstant(kFALSE);
+  double LX6900Init = 0;
+  RooRealVar LX6900("LX6900", "LX6900", LX6900Init);
+  LX6900.setConstant(kTRUE);
+  double dX6900Init = 3.00, dX6900Min = 1.00, dX6900Max = 5.00;
+  RooRealVar dX6900("dX6900", "dX6900", dX6900Init, dX6900Min, dX6900Max);
+  dX6900.setConstant(kTRUE);
+  double coefX6900Init = 1, coefX6900Min = 0, coefX6900Max = 1000;
+  RooRealVar coefX6900("coefX6900", "coefX6900", coefX6900Init, coefX6900Min, coefX6900Max);
+  coefX6900.setConstant(kTRUE);
+  double phiX6900Init = 0, phiX6900Min = -PI, phiX6900Max = PI;
+  RooRealVar phiX6900("phiX6900", "phiX6900", phiX6900Init, phiX6900Min, phiX6900Max);
+  phiX6900.setConstant(kTRUE);
+  //
+  // Here we add parameters for fourth peak
+  //
+  double massX7300Init = 7.28734e+00, massX7300Min = 7.00, massX7300Max = 7.50;
+  RooRealVar massX7300("massX7300", "massX7300", massX7300Init, massX7300Min, massX7300Max);
+  massX7300.setConstant(kFALSE);
+  double widthX7300Init = 9.32169e-02, widthX7300Min = 0.00, widthX7300Max = 0.50;
+  RooRealVar widthX7300("widthX7300", "widthX7300", widthX7300Init, widthX7300Min, widthX7300Max);
+  widthX7300.setConstant(kFALSE);
+  double LX7300Init = 0;
+  RooRealVar LX7300("LX7300", "LX7300", LX7300Init);
+  LX7300.setConstant(kTRUE);
+  double dX7300Init = 3.00, dX7300Min = 1.00, dX7300Max = 5.00;
+  RooRealVar dX7300("dX7300", "dX7300", dX7300Init, dX7300Min, dX7300Max);
+  dX7300.setConstant(kTRUE);
+  double coefX7300Init = 1, coefX7300Min = 0, coefX7300Max = 1000;
+  RooRealVar coefX7300("coefX7300", "coefX7300", coefX7300Init, coefX7300Min, coefX7300Max);
+  coefX7300.setConstant(kTRUE);
+  double phiX7300Init = 0, phiX7300Min = -PI, phiX7300Max = PI;
+  RooRealVar phiX7300("phiX7300", "phiX7300", phiX7300Init, phiX7300Min, phiX7300Max);
+  phiX7300.setConstant(kTRUE);
 
   // To take into account detectors effect that affect the resolution of our peak
   // we introduce a smearing function with the below parameters
@@ -197,18 +272,37 @@ void null_BW0(){
   // Here we construct our function with the parameters defined above
   MyRelBWSquare Th1("Th1", "Th1", mx,
       massTh1, widthTh1, LTh1, dTh1, coefTh1, phiTh1);
+  //Here we construct our function with the second peak
+  MyRelBWSquare X6500("X6500", "X6500", mx, massX6500, widthX6500, LX6500, dX6500, coefX6500, phiX6500);
+  // Here we construct our function with the third peak
+  MyRelBWSquare X6900("X6900", "X6900", mx, massX6900, widthX6900, LX6900, dX6900, coefX6900, phiX6900);
+  // Here we construct our function with the fourth peak
+  MyRelBWSquare X7300("X7300", "X7300", mx, massX7300, widthX7300, LX7300, dX7300, coefX7300, phiX7300);
+
   // We also need to take into account detector smearing which affect the resolution of the peak
   MiptDoubleGaussian2 resoTh1("resoTh1", "resoTh1", mx, R_ZERO, frac_g2,
       massTh1, R_MTH, w_g1, w_g2, beta);
+  // Our second smearing function
+  MiptDoubleGaussian2 resoX6500("resoX6500", "resoX6500", mx, R_ZERO, frac_g2, massX6500, R_MTH, w_g1, w_g2, beta);
+  // Our third smearing function
+  MiptDoubleGaussian2 resoX6900("resoX6900", "resoX6900", mx, R_ZERO, frac_g2, massX6900, R_MTH, w_g1, w_g2, beta);
+  // Our fourth smearing function
+  MiptDoubleGaussian2 resoX7300("resoX7300", "resoX7300", mx, R_ZERO, frac_g2, massX7300, R_MTH, w_g1, w_g2, beta);
+
   // we do a numerical convolution as we do not have an analytical function
   // This is the final formula for the peak    
-  RooFFTConvPdf Th1Reso("Th1Reso", "Th1Reso",
-      mx, Th1, resoTh1);
+  RooFFTConvPdf Th1Reso("Th1Reso", "Th1Reso", mx, Th1, resoTh1);
+  // This is the formula for the second peak
+  RooFFTConvPdf X6500Reso("X6500Reso", "X6500Reso", mx, X6500, resoX6500);
+  // This is the formula for the third peak
+  RooFFTConvPdf X6900Reso("X6900Reso", "X6900Reso", mx, X6900, resoX6900);
+  // This is the formula for the fourth peak
+  RooFFTConvPdf X7300Reso("X7300Reso", "X7300Reso", mx, X7300, resoX7300);
 
   // dps and sps are backgrounds and Th1Reso is our signal
-  RooArgList pdfList(dpsPdf, spsPdf, Th1Reso);
+  RooArgList pdfList(dpsPdf, spsPdf, Th1Reso, X6500Reso, X6900Reso, X7300Reso);
   // we want to normalize them 
-  RooArgList numList(numDps, numSps, numTh1);
+  RooArgList numList(numDps, numSps, numTh1, numX6500, numX6900, numX7300);
 
   RooAddPdf model("model", "model", pdfList, numList);
 
@@ -252,6 +346,9 @@ void null_BW0(){
   model.plotOn(frame, Components(dpsPdf), Name("Dps"), LineColor(kGreen), LineStyle(1));
   model.plotOn(frame, Components(spsPdf), Name("Sps"), LineColor(kViolet), LineStyle(1));
   model.plotOn(frame, Components(Th1Reso), Name("Th1"), LineColor(kMagenta), LineStyle(kDashDotted));
+  model.plotOn(frame, Components(X6500Reso), Name("X6500"), LineColor(kRed), LineStyle(kDotted));
+  model.plotOn(frame, Components(X6900Reso), Name("X6900"), LineColor(kRed), LineStyle(kDotted));
+  model.plotOn(frame, Components(X7300Reso), Name("X7300"), LineColor(kRed), LineStyle(kDotted));
 
   frame->GetXaxis()->SetTitle(XTitle.Data());
   frame->GetXaxis()->SetLabelColor(0, 0);
@@ -264,6 +361,9 @@ void null_BW0(){
   leg.AddEntry(frame->findObject("Th1"), "BW0", "l");
   leg.AddEntry(frame->findObject("Sps"), "SPS", "l");
   leg.AddEntry(frame->findObject("Dps"), "DPS", "l");
+  leg.AddEntry(frame->findObject("X6500"), "BW1", "l");
+  leg.AddEntry(frame->findObject("X6900"), "BW2", "l");
+  leg.AddEntry(frame->findObject("X7300"), "BW3", "l");
 
   RooPlot *pullFrame = mx.frame(Range(mxMin, mxMax), Bins(mxBins));
   RooHist *pull = frame->pullHist("data", "model");
